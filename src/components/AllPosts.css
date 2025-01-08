@@ -7,6 +7,6 @@
 }
 
 .posts>* {
-    flex-basis: 50%;
+    flex-basis: 40%;
     margin: 0.5rem;
 }

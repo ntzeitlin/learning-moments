@@ -5,6 +5,10 @@
     padding: 1rem;
 }
 
+.post:hover {
+    background-color: lightblue;
+}
+
 .post-info {
     color: black;
     font-family: "Roboto", sans-serif;
