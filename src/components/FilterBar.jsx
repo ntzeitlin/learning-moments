@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react"
 
-export const FilterBar = ({ allTopics, allPosts, setFilteredPosts, filteredPosts }) => {
+export const FilterBar = ({ allTopics, allPosts, setFilteredPosts }) => {
 
     const [searchTerm, setSearchTerm] = useState("")
     const [dropDownValue, setDropDownValue] = useState(0)
