@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useState } from "react"
 import { getAllPosts } from "../services/postService"
+import { Post } from "./Post"
 
 export const AllPosts = () => {
     const [allPosts, setAllPosts] = useState([])
@@ -14,19 +15,7 @@ export const AllPosts = () => {
             {
                 allPosts.map(
                     (postObject) => {
-                        return <li key={postObject.id}>
-                            <div>
-                                Topic: {postObject.topic.name}
-                            </div>
-                            <div>
-                                Title: {postObject.title}
-                            </div>
-                            <div>
-                                Likes: {
-
-                                }
-                            </div>
-                        </li>
+                        return <Post postObject={postObject} key={postObject.id} />
                     }
                 )
             }
