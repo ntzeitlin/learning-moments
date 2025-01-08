@@ -9,7 +9,7 @@ export const FilterBar = ({ allTopics, allPosts, setFilteredPosts, filteredPosts
     useEffect(() => {
         setFilteredPosts(allPosts)
         if (searchTerm) {
-            setFilteredPosts(filteredPosts.filter(postObj => postObj.title.toLowerCase().includes(searchTerm.toLowerCase())))
+            setFilteredPosts(allPosts.filter(postObj => postObj.title.toLowerCase().includes(searchTerm.toLowerCase())))
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allPosts, searchTerm])
@@ -17,7 +17,7 @@ export const FilterBar = ({ allTopics, allPosts, setFilteredPosts, filteredPosts
     useEffect(() => {
         setFilteredPosts(allPosts)
         if (dropDownValue) {
-            setFilteredPosts(filteredPosts.filter(postObj => postObj.topicId === parseInt(dropDownValue)))
+            setFilteredPosts(allPosts.filter(postObj => postObj.topicId === parseInt(dropDownValue)))
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allPosts, dropDownValue])
