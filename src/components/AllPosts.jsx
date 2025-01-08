@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { getAllPosts } from "../services/postService"
 import { Post } from "./Post"
+import "./AllPosts.css"
 
 export const AllPosts = () => {
     const [allPosts, setAllPosts] = useState([])
@@ -11,7 +12,7 @@ export const AllPosts = () => {
     }, [])
 
     return <div>
-        <ul>
+        <ul className="posts">
             {
                 allPosts.map(
                     (postObject) => {

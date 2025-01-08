@@ -1,0 +1,11 @@
+.post {
+    background-color: white;
+    border: 1px solid green;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.post-info {
+    color: black;
+    font-family: "Roboto", sans-serif;
+}
