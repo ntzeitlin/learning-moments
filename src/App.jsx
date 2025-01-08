@@ -1,4 +1,10 @@
+import { AllPosts } from "./components/AllPosts"
 
 export const App = () => {
-  return <div>Hello World!</div>
+  return (
+    <>
+      <AllPosts />
+    </>
+  )
+
 }
