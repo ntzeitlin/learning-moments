@@ -24,12 +24,14 @@ export const FilterBar = ({ allTopics, allPosts, setFilteredPosts }) => {
 
     return (
         <div className="filter-bar">
+
             <input
                 type="text"
                 placeholder="Search Posts"
                 className="post-search"
                 onChange={event => setSearchTerm(event.target.value)}
             />
+
             <div>
                 <select name="topics" className="topic-filter" onChange={event => setDropDownValue(event.target.value)}>
                     <option value="">Choose Topic...</option>
