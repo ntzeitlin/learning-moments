@@ -7,7 +7,6 @@ import { Authorized } from "./views/Authorized"
 
 export const App = () => {
   return (
-
     <Routes
       path="/">
       <Route path="login" element={<Login />} />
