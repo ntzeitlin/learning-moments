@@ -26,7 +26,7 @@ export const ApplicationViews = () => {
                 <Route index element={<AllPosts />} />
                 <Route path="posts">
                     <Route index element={<AllPosts />} />
-                    <Route path=":postId" element={<PostDetails />} />
+                    <Route path=":postId" element={<PostDetails currentUser={currentUser} />} />
                 </Route>
 
 
