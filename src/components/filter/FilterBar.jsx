@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react"
+import { TopicDropDown } from "./TopicDropDown"
 
 export const FilterBar = ({ allTopics, allPosts, setFilteredPosts }) => {
 
@@ -32,20 +33,8 @@ export const FilterBar = ({ allTopics, allPosts, setFilteredPosts }) => {
                 onChange={event => setSearchTerm(event.target.value)}
             />
 
-            <div>
-                <select name="topics" className="topic-filter" onChange={event => setDropDownValue(event.target.value)}>
-                    <option value="">Choose Topic...</option>
-                    {
-                        allTopics.map((topicObj) => (
-                            <option value={topicObj.id} key={topicObj.id}>
-                                {topicObj.name}
-                            </option>
-                        )
-                        )
-                    }
+            <TopicDropDown allTopics={allTopics} setTopicValue={setDropDownValue} />
 
-                </select>
-            </div>
         </div>
     )
 }

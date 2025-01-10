@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useParams } from "react-router-dom"
 import "./Post.css"
 import { useEffect } from "react"
@@ -12,18 +13,17 @@ export const PostDetails = ({ currentUser }) => {
     // create state to store current post data
     const [postData, setPostData] = useState({})
 
-
     const renderPostDetail = () => {
         getPostById(postId).then((postDataObject) => {
             setPostData(postDataObject)
         })
-
     }
+
     // on initial render, get post data from post service using the postId
     // will return a post data object
     useEffect(() => {
         renderPostDetail()
-    }, [postId])
+    }, [])
 
     const handleLike = () => {
         const newLike = {
@@ -44,7 +44,7 @@ export const PostDetails = ({ currentUser }) => {
                 <h2>Likes: {postData.userLikedPosts ? postData.userLikedPosts.length : 0}</h2>
             </header>
             <div>
-                {postData.body}
+                Body: {postData.body}
             </div>
             <div className="btn-container">
 

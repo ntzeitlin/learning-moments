@@ -4,7 +4,7 @@ import { getAllPosts } from "../../services/postService"
 import { Post } from "./Post"
 import "./AllPosts.css"
 import { getAllTopics } from "../../services/topicService"
-import { FilterBar } from "../FilterBar"
+import { FilterBar } from "../filter/FilterBar"
 
 export const AllPosts = () => {
     const [allPosts, setAllPosts] = useState([])
