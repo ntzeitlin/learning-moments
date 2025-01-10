@@ -24,7 +24,6 @@ export const AllPosts = () => {
             allTopics={allTopics}
             allPosts={allPosts}
             setFilteredPosts={setFilteredPosts}
-            filteredPosts={filteredPosts}
         />
 
         <ul className="posts">
