@@ -31,10 +31,8 @@ export const NewPost = ({ allTopics, currentUser }) => {
 
 
         if (titleValue && topicValue && bodyValue) {
-            console.log(postDataObject)
-
             createNewPost(postDataObject).then(() => {
-                navigate("/")
+                navigate("/myposts")
             })
         }
     }

@@ -5,10 +5,13 @@ import { useState, useEffect } from "react"
 import { PostDetails } from "../components/posts/PostDetails"
 import { NewPost } from "../components/forms/NewPost"
 import { getAllTopics } from "../services/topicService"
+import { getAllPosts } from "../services/postService"
+import UserPostList from "../components/posts/UserPostList"
 
 export const ApplicationViews = () => {
     const [currentUser, setCurrentUser] = useState({})
     const [allTopics, setAllTopics] = useState([])
+    const [allPosts, setAllPosts] = useState([])
 
 
     useEffect(() => {
@@ -16,7 +19,8 @@ export const ApplicationViews = () => {
         const learningUserObject = JSON.parse(localLearningUser)
         setCurrentUser(learningUserObject)
         getAllTopics().then(topicArray => setAllTopics(topicArray))
-    }, [])
+        getAllPosts().then(postArray => setAllPosts(postArray))
+    }, [allPosts])
 
 
     return (
@@ -28,7 +32,8 @@ export const ApplicationViews = () => {
                         <Outlet />
                     </>
                 }>
-                <Route index element={<AllPosts allTopics={allTopics} />} />
+                <Route index element={<AllPosts allTopics={allTopics} allPosts={allPosts} />} />
+                <Route path="myposts" element={<UserPostList currentUser={currentUser} allPosts={allPosts} />} />
                 <Route path="posts">
                     <Route index element={<AllPosts allTopics={allTopics} />} />
                     <Route path=":postId" element={<PostDetails currentUser={currentUser} />} />

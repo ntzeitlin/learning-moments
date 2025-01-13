@@ -20,3 +20,11 @@ export const createNewPost = async (postObject) => {
     })
 }
 
+export const deletePost = async (postId) => {
+    const response = await fetch(`http://localhost:8088/posts/${postId}`, {
+        method: 'DELETE'
+    })
+    const data = response.json()
+    return data
+}
+
