@@ -20,8 +20,8 @@ const UserPostList = ({ currentUser, allPosts, refreshAllPosts }) => {
     }, [allPosts, currentUser.id])
 
     const handleDelete = (event) => {
-        deletePost(event.target.value).then(response => console.log(response))
-        refreshAllPosts()
+        deletePost(event.target.value).then(refreshAllPosts())
+
     }
 
     return (
