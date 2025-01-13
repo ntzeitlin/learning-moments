@@ -4,6 +4,8 @@
 import { useEffect, useState } from "react"
 import { deletePost } from "../../services/postService"
 import { Link } from "react-router-dom"
+import "./AllPosts.css"
+import "./Post.css"
 
 const UserPostList = ({ currentUser, allPosts, refreshAllPosts }) => {
 
@@ -25,13 +27,13 @@ const UserPostList = ({ currentUser, allPosts, refreshAllPosts }) => {
     }
 
     return (
-        <div>
-            <h1>This is myposts view {currentUser.id}</h1>
+        <div className="posts">
+            <div><h1>My Posts:</h1></div>
             {userPosts.map(
                 (postObj) => {
                     return (
-                        <div key={`post--myview--${postObj.id}`}>
-                            <Link to={`/posts/${postObj.id}`}> <div>Title: {postObj.title}</div> </Link>
+                        <div className="post" key={`post--myview--${postObj.id}`}>
+                            <Link to={`/posts/${postObj.id}`}> <div className="post-info">Title: {postObj.title}</div> </Link>
                             <button onClick={handleDelete} value={postObj.id}>
                                 Delete
                             </button>
