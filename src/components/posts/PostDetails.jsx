@@ -23,6 +23,7 @@ export const PostDetails = ({ currentUser }) => {
     // will return a post data object
     useEffect(() => {
         renderPostDetail()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const handleLike = () => {
@@ -40,6 +41,7 @@ export const PostDetails = ({ currentUser }) => {
             <header className="post-detail-header">
                 <h1>Title: {postData.title}</h1>
                 <h2>Topic: {postData.topic?.name}</h2>
+                <h2>Author: {postData.user?.name}</h2>
                 <h2>Date: {postData.date}</h2>
                 <h2>Likes: {postData.userLikedPosts ? postData.userLikedPosts.length : 0}</h2>
             </header>
@@ -58,7 +60,7 @@ export const PostDetails = ({ currentUser }) => {
                     Then the like relationship will save to the database */}
 
                 {/* Get currentUser from props and check its id against the post's id to render buttons */}
-                {currentUser?.id === postData.id ? (
+                {currentUser?.id === postData.userId ? (
                     <button>Edit</button>
                 ) : (
                     <button onClick={handleLike}>Like</button>
