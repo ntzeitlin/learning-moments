@@ -13,15 +13,18 @@ export const ApplicationViews = () => {
     const [allTopics, setAllTopics] = useState([])
     const [allPosts, setAllPosts] = useState([])
 
+    const refreshAllPosts = () => {
+        getAllPosts().then(postArray => setAllPosts(postArray))
+
+    }
 
     useEffect(() => {
         const localLearningUser = localStorage.getItem("learning_user")
         const learningUserObject = JSON.parse(localLearningUser)
         setCurrentUser(learningUserObject)
         getAllTopics().then(topicArray => setAllTopics(topicArray))
-        getAllPosts().then(postArray => setAllPosts(postArray))
-    }, [allPosts])
-
+        refreshAllPosts()
+    }, [])
 
     return (
         <Routes>
@@ -33,12 +36,12 @@ export const ApplicationViews = () => {
                     </>
                 }>
                 <Route index element={<AllPosts allTopics={allTopics} allPosts={allPosts} />} />
-                <Route path="myposts" element={<UserPostList currentUser={currentUser} allPosts={allPosts} />} />
+                <Route path="myposts" element={<UserPostList currentUser={currentUser} allPosts={allPosts} refreshAllPosts={refreshAllPosts} />} />
                 <Route path="posts">
                     <Route index element={<AllPosts allTopics={allTopics} />} />
                     <Route path=":postId" element={<PostDetails currentUser={currentUser} />} />
                 </Route>
-                <Route path="newpost" element={<NewPost allTopics={allTopics} currentUser={currentUser} />} />
+                <Route path="newpost" element={<NewPost allTopics={allTopics} currentUser={currentUser} refreshAllPosts={refreshAllPosts} />} />
 
 
             </Route>

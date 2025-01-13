@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { deletePost } from "../../services/postService"
 import { Link } from "react-router-dom"
 
-const UserPostList = ({ currentUser, allPosts }) => {
+const UserPostList = ({ currentUser, allPosts, refreshAllPosts }) => {
 
     // get all posts and filter by userId to get all posts created by user
     // check to see if this is the myposts view or favorite view
@@ -15,12 +15,13 @@ const UserPostList = ({ currentUser, allPosts }) => {
     const [userPosts, setUserPosts] = useState([])
 
     useEffect(() => {
-        const currentUserPosts = allPosts?.filter(({ userId }) => userId === currentUser.id)
+        const currentUserPosts = allPosts?.filter(({ userId }) => userId === currentUser?.id)
         setUserPosts(currentUserPosts)
     }, [allPosts, currentUser.id])
 
     const handleDelete = (event) => {
         deletePost(event.target.value).then(response => console.log(response))
+        refreshAllPosts()
     }
 
     return (

@@ -4,7 +4,7 @@ import { TopicDropDown } from "../filter/TopicDropDown"
 import { useNavigate } from "react-router-dom"
 import { createNewPost } from "../../services/postService"
 
-export const NewPost = ({ allTopics, currentUser }) => {
+export const NewPost = ({ allTopics, currentUser, refreshAllPosts }) => {
     const navigate = useNavigate()
 
     const [topicValue, setTopicValue] = useState(0)
@@ -32,6 +32,7 @@ export const NewPost = ({ allTopics, currentUser }) => {
 
         if (titleValue && topicValue && bodyValue) {
             createNewPost(postDataObject).then(() => {
+                refreshAllPosts()
                 navigate("/myposts")
             })
         }
