@@ -1,25 +1,30 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react"
-import { TopicDropDown } from "../filter/TopicDropDown"
-import { useNavigate } from "react-router-dom"
-import { createNewPost } from "../../services/postService"
+import { useEffect, useState } from "react";
+import { TopicDropDown } from "../filter/TopicDropDown";
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+    createNewPost,
+    editPost,
+    getPostById,
+} from "../../services/postService";
 
 export const NewPost = ({ allTopics, currentUser, refreshAllPosts }) => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const [topicValue, setTopicValue] = useState(0)
-    const [bodyValue, setBodyValue] = useState("")
-    const [titleValue, setTitleValue] = useState("")
+    const [topicValue, setTopicValue] = useState(0);
+    const [bodyValue, setBodyValue] = useState("");
+    const [titleValue, setTitleValue] = useState("");
 
     const handleTitleChange = (event) => {
-        setTitleValue(event.target.value)
-    }
+        setTitleValue(event.target.value);
+    };
     const handleBodyChange = (event) => {
-        setBodyValue(event.target.value)
-    }
+        setBodyValue(event.target.value);
+    };
 
     const handleSave = (event) => {
-        event.preventDefault()
+        event.preventDefault();
 
         const postDataObject = {
             userId: currentUser.id,
@@ -27,24 +32,63 @@ export const NewPost = ({ allTopics, currentUser, refreshAllPosts }) => {
             topicId: topicValue,
             body: bodyValue,
             date: new Date(),
-        }
-
+        };
 
         if (titleValue && topicValue && bodyValue) {
             createNewPost(postDataObject).then(() => {
-                refreshAllPosts()
-                navigate("/myposts")
-            })
+                refreshAllPosts();
+                navigate("/posts/mine");
+            });
+        } else {
+            window.alert("Please fill out all fields");
         }
-    }
+    };
+
+    const shouldEdit = location.state?.shouldEdit;
+    const currentPostId = location.state?.postId;
+
+    const getPostInfo = () => {
+        getPostById(location.state.postId).then((data) => {
+            setTitleValue(data.title);
+            setBodyValue(data.body);
+            setTopicValue(parseInt(data.topicId));
+        });
+    };
+
+    useEffect(() => {
+        if (shouldEdit) {
+            getPostInfo();
+        }
+    }, []);
+
+    const handleEdit = (event) => {
+        event.preventDefault();
+        const postDataObject = {
+            userId: currentUser.id,
+            title: titleValue,
+            topicId: topicValue,
+            body: bodyValue,
+            date: new Date(),
+        };
+
+        editPost(postDataObject, parseInt(currentPostId)).then(() => {
+            refreshAllPosts();
+            navigate("/posts/mine");
+        });
+    };
 
     return (
         <form>
-            <h1>New Post</h1>
+            {shouldEdit ? <h1>Edit Post</h1> : <h1>New Post</h1>}
+            {location.state?.postId}
             <fieldset>
                 <div>
                     <label>Topic:</label>
-                    <TopicDropDown allTopics={allTopics} setTopicValue={setTopicValue} />
+                    <TopicDropDown
+                        allTopics={allTopics}
+                        topicValue={topicValue}
+                        setTopicValue={setTopicValue}
+                    />
                 </div>
             </fieldset>
             <fieldset>
@@ -71,10 +115,15 @@ export const NewPost = ({ allTopics, currentUser, refreshAllPosts }) => {
                 </div>
             </fieldset>
             <fieldset>
+                {/* ADD BUTTON FOR WHEN SUBMITTING EDITS INSTEAD OF POSTING A NEW POST */}
                 <div>
-                    <button onClick={handleSave}>Save Post</button>
+                    {shouldEdit ? (
+                        <button onClick={handleEdit}>Submit Edit</button>
+                    ) : (
+                        <button onClick={handleSave}>Save Post</button>
+                    )}
                 </div>
             </fieldset>
         </form>
-    )
-}
+    );
+};

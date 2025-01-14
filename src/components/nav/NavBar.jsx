@@ -1,20 +1,31 @@
-import { Link } from "react-router-dom"
-import "./NavBar.css"
-import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom";
+import "./NavBar.css";
+import { useNavigate } from "react-router-dom";
 
 export const NavBar = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     return (
         <ul className="navbar">
             <li className="navbar-item">
-                <Link to="/" className="navbar-link">All Posts</Link>
+                <Link to="/" className="navbar-link">
+                    All Posts
+                </Link>
             </li>
             <li className="navbar-item">
-                <Link to="/myposts" className="navbar-link">My Posts</Link>
+                <Link to="/posts/mine" className="navbar-link">
+                    My Posts
+                </Link>
             </li>
             <li className="navbar-item">
-                <Link to="/newpost" className="navbar-link">New Post</Link>
+                <Link to="/posts/favorite" className="navbar-link">
+                    Favorite
+                </Link>
+            </li>
+            <li className="navbar-item">
+                <Link to="/posts/new" className="navbar-link">
+                    New Post
+                </Link>
             </li>
             {localStorage.getItem("learning_user") ? (
                 <li className="navbar-item navbar-logout">
@@ -22,8 +33,8 @@ export const NavBar = () => {
                         to=""
                         className="navbar-link"
                         onClick={() => {
-                            localStorage.removeItem("learning_user")
-                            navigate("/login", { replace: true })
+                            localStorage.removeItem("learning_user");
+                            navigate("/login", { replace: true });
                         }}
                     >
                         Logout
@@ -33,5 +44,5 @@ export const NavBar = () => {
                 ""
             )}
         </ul>
-    )
-}
+    );
+};

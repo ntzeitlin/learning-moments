@@ -1,40 +1,47 @@
 /* eslint-disable react/prop-types */
-import { useParams } from "react-router-dom"
-import "./Post.css"
-import { useEffect } from "react"
-import { getPostById } from "../../services/postService"
-import { useState } from "react"
-import { submitLikedPost } from "../../services/userLikedPostService"
+import { useNavigate, useParams } from "react-router-dom";
+import "./Post.css";
+import { useEffect } from "react";
+import { getPostById } from "../../services/postService";
+import { useState } from "react";
+import { submitLikedPost } from "../../services/userLikedPostService";
 
-export const PostDetails = ({ currentUser }) => {
+export const PostDetails = ({ currentUser, refreshAllPosts }) => {
     // get the current postId from the link parameters
-    const { postId } = useParams()
-
+    const { postId } = useParams();
+    const navigate = useNavigate();
     // create state to store current post data
-    const [postData, setPostData] = useState({})
+    const [postData, setPostData] = useState({});
 
     const renderPostDetail = () => {
         getPostById(postId).then((postDataObject) => {
-            setPostData(postDataObject)
-        })
-    }
+            setPostData(postDataObject);
+        });
+    };
 
     // on initial render, get post data from post service using the postId
     // will return a post data object
     useEffect(() => {
-        renderPostDetail()
+        renderPostDetail();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []);
 
     const handleLike = () => {
         const newLike = {
             userId: currentUser.id,
-            postId: parseInt(postId)
-        }
+            postId: parseInt(postId),
+        };
         submitLikedPost(newLike).then(() => {
-            renderPostDetail()
-        })
-    }
+            renderPostDetail();
+            refreshAllPosts();
+        });
+    };
+
+    const handleEdit = () => {
+        navigate("/posts/edit", {
+            state: { shouldEdit: true, postId: postId },
+        });
+    };
 
     return (
         <section className="post-detail">
@@ -43,13 +50,15 @@ export const PostDetails = ({ currentUser }) => {
                 <h2>Topic: {postData.topic?.name}</h2>
                 <h2>Author: {postData.user?.name}</h2>
                 <h2>Date: {postData.date}</h2>
-                <h2>Likes: {postData.userLikedPosts ? postData.userLikedPosts.length : 0}</h2>
+                <h2>
+                    Likes:{" "}
+                    {postData.userLikedPosts
+                        ? postData.userLikedPosts.length
+                        : 0}
+                </h2>
             </header>
-            <div>
-                Body: {postData.body}
-            </div>
+            <div>Body: {postData.body}</div>
             <div className="btn-container">
-
                 {/* Given the user is the author of the post
                     Then a button to edit the post should display
                     When the user clicks the edit button */}
@@ -61,11 +70,11 @@ export const PostDetails = ({ currentUser }) => {
 
                 {/* Get currentUser from props and check its id against the post's id to render buttons */}
                 {currentUser?.id === postData.userId ? (
-                    <button>Edit</button>
+                    <button onClick={handleEdit}>Edit</button>
                 ) : (
                     <button onClick={handleLike}>Like</button>
                 )}
             </div>
         </section>
-    )
-}
+    );
+};
