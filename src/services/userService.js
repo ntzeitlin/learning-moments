@@ -13,3 +13,22 @@ export const createUser = (user) => {
     body: JSON.stringify(user),
   }).then((res) => res.json())
 }
+
+export const getUserById = async (userId) => {
+  const response = await fetch(`http://localhost:8088/users/${userId}`)
+  const data = await response.json()
+  
+ return data
+}
+
+export const editUserProfile = async(userProfileObject) => {
+  const response = await fetch(`http://localhost:8088/users/${userProfileObject.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(userProfileObject)
+  })
+  const data = response.json()
+  return data
+}

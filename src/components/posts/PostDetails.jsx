@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./Post.css";
 import { useEffect } from "react";
 import { getPostById } from "../../services/postService";
@@ -35,6 +35,7 @@ export const PostDetails = ({ currentUser, refreshAllPosts }) => {
             renderPostDetail();
             refreshAllPosts();
         });
+        navigate("/posts/favorite");
     };
 
     const handleEdit = () => {
@@ -48,7 +49,12 @@ export const PostDetails = ({ currentUser, refreshAllPosts }) => {
             <header className="post-detail-header">
                 <h1>Title: {postData.title}</h1>
                 <h2>Topic: {postData.topic?.name}</h2>
-                <h2>Author: {postData.user?.name}</h2>
+                <h2>
+                    Author:
+                    <Link to={`/profile/${postData.userId}`}>
+                        {postData.user?.name}
+                    </Link>
+                </h2>
                 <h2>Date: {postData.date}</h2>
                 <h2>
                     Likes:{" "}

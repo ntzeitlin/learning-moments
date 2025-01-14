@@ -24,6 +24,14 @@ export const getLikedPostsByUserId = async (userId) => {
     return data;
 };
 
+export const getPostsByUserId = async (userId) => {
+    const response = await fetch(
+        `http://localhost:8088/posts?userId=${userId}`
+    );
+    const data = await response.json();
+    return data;
+};
+
 // SETTERS:
 
 export const createNewPost = async (postObject) => {

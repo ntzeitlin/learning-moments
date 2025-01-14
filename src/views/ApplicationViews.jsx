@@ -8,6 +8,7 @@ import { getAllTopics } from "../services/topicService";
 import { getAllPosts } from "../services/postService";
 import UserPostList from "../components/posts/UserPostList";
 import { FavoritePosts } from "../components/posts/FavoritePosts";
+import { Profile } from "../components/forms/Profile";
 
 export const ApplicationViews = () => {
     const [currentUser, setCurrentUser] = useState({});
@@ -34,7 +35,7 @@ export const ApplicationViews = () => {
                 path="/"
                 element={
                     <>
-                        <NavBar />
+                        <NavBar currentUser={currentUser} />
                         <Outlet />
                     </>
                 }
@@ -45,16 +46,8 @@ export const ApplicationViews = () => {
                         <AllPosts allTopics={allTopics} allPosts={allPosts} />
                     }
                 />
-                <Route
-                    path="posts/mine"
-                    element={
-                        <UserPostList
-                            currentUser={currentUser}
-                            allPosts={allPosts}
-                            refreshAllPosts={refreshAllPosts}
-                        />
-                    }
-                />
+
+                {/* PATHS FOR /posts/ */}
                 <Route path="posts">
                     <Route index element={<AllPosts allTopics={allTopics} />} />
                     <Route
@@ -96,6 +89,32 @@ export const ApplicationViews = () => {
                             />
                         }
                     />
+                    <Route
+                        path="mine"
+                        element={
+                            <UserPostList
+                                currentUser={currentUser}
+                                allPosts={allPosts}
+                                refreshAllPosts={refreshAllPosts}
+                            />
+                        }
+                    />
+                </Route>
+                <Route path="profile">
+                    <Route
+                        path=":userId"
+                        element={<Profile currentUser={currentUser} />}
+                    >
+                        <Route
+                            path="edit"
+                            element={
+                                <Profile
+                                    currentUser={currentUser}
+                                    edit={true}
+                                />
+                            }
+                        />
+                    </Route>
                 </Route>
             </Route>
         </Routes>
