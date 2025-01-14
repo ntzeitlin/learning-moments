@@ -8,7 +8,7 @@ import { getAllTopics } from "../services/topicService";
 import { getAllPosts } from "../services/postService";
 import UserPostList from "../components/posts/UserPostList";
 import { FavoritePosts } from "../components/posts/FavoritePosts";
-import { Profile } from "../components/forms/Profile";
+import { Profile } from "../components/user/Profile";
 
 export const ApplicationViews = () => {
     const [currentUser, setCurrentUser] = useState({});
@@ -107,12 +107,7 @@ export const ApplicationViews = () => {
                     >
                         <Route
                             path="edit"
-                            element={
-                                <Profile
-                                    currentUser={currentUser}
-                                    edit={true}
-                                />
-                            }
+                            element={<Profile currentUser={currentUser} />}
                         />
                     </Route>
                 </Route>

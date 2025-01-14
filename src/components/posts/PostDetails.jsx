@@ -44,6 +44,21 @@ export const PostDetails = ({ currentUser, refreshAllPosts }) => {
         });
     };
 
+    const checkIfLiked = () => {
+        const alreadyLiked =
+            postData.userLikedPosts?.filter(
+                (likedPostObject) =>
+                    parseInt(likedPostObject.userId) ===
+                    parseInt(currentUser.id)
+            ).length > 0;
+
+        if (alreadyLiked) {
+            return <button disabled>Like</button>;
+        } else {
+            return <button onClick={handleLike}>Like</button>;
+        }
+    };
+
     return (
         <section className="post-detail">
             <header className="post-detail-header">
@@ -78,7 +93,7 @@ export const PostDetails = ({ currentUser, refreshAllPosts }) => {
                 {currentUser?.id === postData.userId ? (
                     <button onClick={handleEdit}>Edit</button>
                 ) : (
-                    <button onClick={handleLike}>Like</button>
+                    checkIfLiked()
                 )}
             </div>
         </section>

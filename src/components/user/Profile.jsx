@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { editUserProfile, getUserById } from "../../services/userService";
 import "../posts/Post.css";
 import { getPostsByUserId } from "../../services/postService";
+import { EditProfile } from "../forms/EditProfile";
 
 export const Profile = ({ currentUser }) => {
     const { userId } = useParams();
@@ -36,49 +37,11 @@ export const Profile = ({ currentUser }) => {
     };
 
     return state?.shouldEdit ? (
-        <section className="post-detail">
-            <header className="post-detail-header">Edit Profile</header>
-            <form>
-                <fieldset>
-                    <div>
-                        <label>Name:</label>
-                        <input
-                            type="text"
-                            name="name"
-                            value={profileData.name}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <div>
-                        <label>Cohort:</label>
-                        <input
-                            type="text"
-                            name="cohort"
-                            value={profileData.cohort}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <div>
-                        <label>Email:</label>
-                        <input
-                            type="text"
-                            name="email"
-                            value={profileData.email}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <button onClick={handleSubmitChanges}>
-                        Submit Changes
-                    </button>
-                </fieldset>
-            </form>
-        </section>
+        <EditProfile
+            profileData={profileData}
+            handleInputChange={handleInputChange}
+            handleSubmitChanges={handleSubmitChanges}
+        />
     ) : (
         <section className="post-detail">
             <header className="post-detail-header">

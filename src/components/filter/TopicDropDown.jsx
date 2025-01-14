@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-export const TopicDropDown = ({ setTopicValue, allTopics, topicValue = 0 }) => {
+export const TopicDropDown = ({ setTopicValue, allTopics, topicValue }) => {
     return (
         <div>
             <select
