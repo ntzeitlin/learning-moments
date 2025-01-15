@@ -5,7 +5,15 @@ import { useEffect } from "react";
 import { getPostById } from "../../services/postService";
 import { useState } from "react";
 import { submitLikedPost } from "../../services/userLikedPostService";
-import { Section, Button, Card, Container } from "@radix-ui/themes";
+import {
+    Section,
+    Button,
+    Card,
+    Container,
+    Heading,
+    Flex,
+    Box,
+} from "@radix-ui/themes";
 import { Pencil2Icon, HeartIcon, HeartFilledIcon } from "@radix-ui/react-icons";
 
 export const PostDetails = ({ currentUser, refreshAllPosts }) => {
@@ -77,23 +85,27 @@ export const PostDetails = ({ currentUser, refreshAllPosts }) => {
             <Container size="3">
                 <Card size="4">
                     <header className="post-detail-header">
-                        <h1>Title: {postData.title}</h1>
-                        <h2>Topic: {postData.topic?.name}</h2>
-                        <h2>
-                            Author:
-                            <Link to={`/profile/${postData.userId}`}>
-                                {postData.user?.name}
-                            </Link>
-                        </h2>
-                        <h2>Date: {postData.date}</h2>
-                        <h2>
-                            Likes:{" "}
-                            {postData.userLikedPosts
-                                ? postData.userLikedPosts.length
-                                : 0}
-                        </h2>
+                        <Heading as="h1">Title: {postData.title}</Heading>
+                        <Box>
+                            <Flex direction="column" gap="2">
+                                <h2>Topic: {postData.topic?.name}</h2>
+                                <h2>
+                                    Author:
+                                    <Link to={`/profile/${postData.userId}`}>
+                                        {postData.user?.name}
+                                    </Link>
+                                </h2>
+                                <h2>Date: {postData.date}</h2>
+                                <h2>
+                                    Likes:{" "}
+                                    {postData.userLikedPosts
+                                        ? postData.userLikedPosts.length
+                                        : 0}
+                                </h2>
+                            </Flex>
+                        </Box>
                     </header>
-                    <div>Body: {postData.body}</div>
+                    <Box m="3">Body: {postData.body}</Box>
                     <div className="btn-container">
                         {/* Given the user is the author of the post
                     Then a button to edit the post should display

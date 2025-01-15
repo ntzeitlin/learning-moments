@@ -4,7 +4,7 @@ import { Post } from "./Post";
 import "./AllPosts.css";
 
 import { FilterBar } from "../filter/FilterBar";
-import { Container, Flex, Grid } from "@radix-ui/themes";
+import { Container, Grid } from "@radix-ui/themes";
 
 export const AllPosts = ({ allTopics, allPosts }) => {
     const [filteredPosts, setFilteredPosts] = useState([]);

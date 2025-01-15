@@ -5,7 +5,7 @@ import { editUserProfile, getUserById } from "../../services/userService";
 import "../posts/Post.css";
 import { getPostsByUserId } from "../../services/postService";
 import { EditProfile } from "../forms/EditProfile";
-import { Button } from "@radix-ui/themes";
+import { Button, Section } from "@radix-ui/themes";
 
 export const Profile = ({ currentUser }) => {
     const { userId } = useParams();
@@ -45,7 +45,7 @@ export const Profile = ({ currentUser }) => {
             handleSubmitChanges={handleSubmitChanges}
         />
     ) : (
-        <section className="post-detail">
+        <Section size="2" m="2" className="post-detail">
             <header className="post-detail-header">
                 <h1>Name: {profileData.name}</h1>
             </header>
@@ -61,6 +61,6 @@ export const Profile = ({ currentUser }) => {
                     ""
                 )}
             </div>
-        </section>
+        </Section>
     );
 };
