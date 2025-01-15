@@ -1,10 +1,11 @@
+import { Box } from "@radix-ui/themes";
+
 /* eslint-disable react/prop-types */
 export const TopicDropDown = ({ setTopicValue, allTopics, topicValue }) => {
     return (
-        <div>
+        <Box m="2">
             <select
                 name="topics"
-                className="topic-filter"
                 onChange={(event) => setTopicValue(event.target.value)}
                 value={topicValue ? topicValue : 0}
             >
@@ -15,6 +16,6 @@ export const TopicDropDown = ({ setTopicValue, allTopics, topicValue }) => {
                     </option>
                 ))}
             </select>
-        </div>
+        </Box>
     );
 };

@@ -7,6 +7,16 @@ import {
     editPost,
     getPostById,
 } from "../../services/postService";
+import {
+    Box,
+    Card,
+    Container,
+    Flex,
+    Heading,
+    Section,
+    TextArea,
+    TextField,
+} from "@radix-ui/themes";
 
 export const NewPost = ({ allTopics, currentUser, refreshAllPosts }) => {
     const navigate = useNavigate();
@@ -78,52 +88,79 @@ export const NewPost = ({ allTopics, currentUser, refreshAllPosts }) => {
     };
 
     return (
-        <form>
-            {shouldEdit ? <h1>Edit Post</h1> : <h1>New Post</h1>}
-            {location.state?.postId}
-            <fieldset>
-                <div>
-                    <label>Topic:</label>
-                    <TopicDropDown
-                        allTopics={allTopics}
-                        topicValue={topicValue}
-                        setTopicValue={setTopicValue}
-                    />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div>
-                    <label>Title:</label>
-                    <input
-                        type="text"
-                        name="title"
-                        value={titleValue ? titleValue : ""}
-                        required
-                        onChange={handleTitleChange}
-                    />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div>
-                    <label>Post body:</label>
-                    <textarea
-                        name="body"
-                        value={bodyValue ? bodyValue : ""}
-                        required
-                        onChange={handleBodyChange}
-                    ></textarea>
-                </div>
-            </fieldset>
-            <fieldset>
-                {/* ADD BUTTON FOR WHEN SUBMITTING EDITS INSTEAD OF POSTING A NEW POST */}
-                <div>
-                    {shouldEdit ? (
-                        <button onClick={handleEdit}>Submit Edit</button>
-                    ) : (
-                        <button onClick={handleSave}>Save Post</button>
-                    )}
-                </div>
-            </fieldset>
-        </form>
+        <Section>
+            <Container size="3">
+                {shouldEdit ? (
+                    <Heading size="5" weight="medium">
+                        Edit Post
+                    </Heading>
+                ) : (
+                    <Heading size="5" weight="medium">
+                        New Post
+                    </Heading>
+                )}
+                <Card>
+                    <form>
+                        <Flex gap="3" direction="column">
+                            <fieldset>
+                                <Box m="1">
+                                    <label>
+                                        Topic:
+                                        <TopicDropDown
+                                            allTopics={allTopics}
+                                            topicValue={topicValue}
+                                            setTopicValue={setTopicValue}
+                                        />
+                                    </label>
+                                </Box>
+                            </fieldset>
+                            <fieldset>
+                                <Box m="1">
+                                    <label>
+                                        Title:
+                                        <TextField.Root
+                                            // type="text"
+                                            name="title"
+                                            value={titleValue ? titleValue : ""}
+                                            // required
+                                            onChange={handleTitleChange}
+                                        />
+                                    </label>
+                                </Box>
+                            </fieldset>
+                            <fieldset>
+                                <Box m="1">
+                                    <label>
+                                        Post body:
+                                        <TextArea
+                                            size="3"
+                                            name="body"
+                                            value={bodyValue ? bodyValue : ""}
+                                            required
+                                            onChange={handleBodyChange}
+                                            mb="2"
+                                        ></TextArea>
+                                    </label>
+                                </Box>
+                            </fieldset>
+                        </Flex>
+                        <fieldset>
+                            {/* ADD BUTTON FOR WHEN SUBMITTING EDITS INSTEAD OF POSTING A NEW POST */}
+                            <div>
+                                {shouldEdit ? (
+                                    <button onClick={handleEdit}>
+                                        Submit Edit
+                                    </button>
+                                ) : (
+                                    <button onClick={handleSave}>
+                                        Save Post
+                                    </button>
+                                )}
+                            </div>
+                        </fieldset>
+                    </form>
+                </Card>
+            </Container>
+        </Section>
     );
 };

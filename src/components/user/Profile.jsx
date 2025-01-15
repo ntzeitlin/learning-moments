@@ -5,6 +5,7 @@ import { editUserProfile, getUserById } from "../../services/userService";
 import "../posts/Post.css";
 import { getPostsByUserId } from "../../services/postService";
 import { EditProfile } from "../forms/EditProfile";
+import { Button } from "@radix-ui/themes";
 
 export const Profile = ({ currentUser }) => {
     const { userId } = useParams();
@@ -55,7 +56,7 @@ export const Profile = ({ currentUser }) => {
             </div>
             <div>
                 {currentUser.id === parseInt(userId) ? (
-                    <button onClick={handleEdit}>edit</button>
+                    <Button onClick={handleEdit}>edit</Button>
                 ) : (
                     ""
                 )}
