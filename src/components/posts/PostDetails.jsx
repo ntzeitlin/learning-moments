@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import { getPostById } from "../../services/postService";
 import { useState } from "react";
 import { submitLikedPost } from "../../services/userLikedPostService";
+import { Section, Button, Card, Container } from "@radix-ui/themes";
+import { Pencil2Icon, HeartIcon, HeartFilledIcon } from "@radix-ui/react-icons";
 
 export const PostDetails = ({ currentUser, refreshAllPosts }) => {
     // get the current postId from the link parameters
@@ -53,49 +55,73 @@ export const PostDetails = ({ currentUser, refreshAllPosts }) => {
             ).length > 0;
 
         if (alreadyLiked) {
-            return <button disabled>Like</button>;
+            return (
+                <Button disabled>
+                    <HeartFilledIcon />
+                    Like
+                </Button>
+            );
+            // <button disabled>Like</button>;
         } else {
-            return <button onClick={handleLike}>Like</button>;
+            return (
+                <Button onClick={handleLike}>
+                    <HeartIcon /> Like
+                </Button>
+            );
+            // <button onClick={handleLike}>Like</button>;
         }
     };
 
     return (
-        <section className="post-detail">
-            <header className="post-detail-header">
-                <h1>Title: {postData.title}</h1>
-                <h2>Topic: {postData.topic?.name}</h2>
-                <h2>
-                    Author:
-                    <Link to={`/profile/${postData.userId}`}>
-                        {postData.user?.name}
-                    </Link>
-                </h2>
-                <h2>Date: {postData.date}</h2>
-                <h2>
-                    Likes:{" "}
-                    {postData.userLikedPosts
-                        ? postData.userLikedPosts.length
-                        : 0}
-                </h2>
-            </header>
-            <div>Body: {postData.body}</div>
-            <div className="btn-container">
-                {/* Given the user is the author of the post
+        <Section>
+            <Container size="3">
+                <Card size="4">
+                    <header className="post-detail-header">
+                        <h1>Title: {postData.title}</h1>
+                        <h2>Topic: {postData.topic?.name}</h2>
+                        <h2>
+                            Author:
+                            <Link to={`/profile/${postData.userId}`}>
+                                {postData.user?.name}
+                            </Link>
+                        </h2>
+                        <h2>Date: {postData.date}</h2>
+                        <h2>
+                            Likes:{" "}
+                            {postData.userLikedPosts
+                                ? postData.userLikedPosts.length
+                                : 0}
+                        </h2>
+                    </header>
+                    <div>Body: {postData.body}</div>
+                    <div className="btn-container">
+                        {/* Given the user is the author of the post
                     Then a button to edit the post should display
                     When the user clicks the edit button */}
 
-                {/* Given the user is not the author of the post
+                        {/* Given the user is not the author of the post
                     Then a button to like the post should display
                     When the user clicks the like button
                     Then the like relationship will save to the database */}
 
-                {/* Get currentUser from props and check its id against the post's id to render buttons */}
-                {currentUser?.id === postData.userId ? (
-                    <button onClick={handleEdit}>Edit</button>
-                ) : (
-                    checkIfLiked()
-                )}
-            </div>
-        </section>
+                        {/* Get currentUser from props and check its id against the post's id to render buttons */}
+                        {currentUser?.id === postData.userId ? (
+                            <Button
+                                onClick={handleEdit}
+                                size="1"
+                                variant="solid"
+                            >
+                                {" "}
+                                <Pencil2Icon />
+                                Edit
+                            </Button>
+                        ) : (
+                            // <button onClick={handleEdit}>Edit</button>
+                            checkIfLiked()
+                        )}
+                    </div>
+                </Card>
+            </Container>
+        </Section>
     );
 };

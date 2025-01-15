@@ -4,6 +4,7 @@ import {
     removeFavorite,
 } from "../../services/postService";
 import { Link } from "react-router-dom";
+import { Button, Card } from "@radix-ui/themes";
 
 export const FavoritePosts = ({ allPosts, currentUser, refreshAllPosts }) => {
     const [likedPosts, setLikedPosts] = useState([]);
@@ -20,26 +21,24 @@ export const FavoritePosts = ({ allPosts, currentUser, refreshAllPosts }) => {
     };
     return (
         <div className="posts">
+            <h1>Favorite Posts:</h1>
             <ul>
                 {likedPosts.map((postObj) => {
                     return (
-                        <div
-                            className="post"
-                            key={`post--myview--${postObj.post?.id}`}
-                        >
+                        <Card key={`post--myview--${postObj.post?.id}`}>
                             <Link to={`/posts/${postObj.post?.id}`}>
                                 {" "}
                                 <div className="post-info">
                                     Title: {postObj.post?.title}
                                 </div>{" "}
                             </Link>
-                            <button
+                            <Button
                                 onClick={handleRemoveLike}
                                 value={postObj.id}
                             >
                                 Remove
-                            </button>
-                        </div>
+                            </Button>
+                        </Card>
                     );
                 })}
             </ul>
